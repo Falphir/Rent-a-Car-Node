@@ -22,10 +22,10 @@ let CarSchema = new Schema({
     title: { type: String, required: true},
     description: { type: String, required: false },
     seats: { type: Number, required: false },
-    miles: { type: Number, required: false },
+    kilometers: { type: Number, required: false },
     price: { type: Number, required: false, currency: "EUR" },
-    typeTransmission: { type: String, required: false },
-    carCategory: { type: String, required: false},
+    typeTransmission: { type: String, required: false, enum: ["Manual", "Automatic"] },
+    carCategory: { type: String, required: false, enum: ["Small", "Medium", "Large"]},
     location: { type: String, required: false},
     extras: [{ type: String, required: false }]
 });
