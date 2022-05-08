@@ -1,6 +1,6 @@
-/* const express = require('express');
+ const express = require('express');
 const Reserves = require('../data/reserves');
-const Rooms = require('../data/rooms');
+const Cars = require('../data/cars');
 const Users = require('../data/users');
 const scopes = require('../data/users/scopes');
 const pagination = require('../middleware/pagination');
@@ -106,10 +106,10 @@ function ReserveRouter() {
 
 
             Reserves.update(reserveId, body)
-                .then((room) => {
+                .then((car) => {
                     console.log('---|update one reserve by ID|---'); //altera dados do reserve
                     res.status(200);
-                    res.send(room);
+                    res.send(car);
                     next();
                 })
 
@@ -120,7 +120,7 @@ function ReserveRouter() {
                 });
         })
 
-        //DELETE - delete room by ID
+        //DELETE - delete car by ID
         .delete(Users.autorize([scopes['delete-reserve']]), function (req, res, next) {
 
             let reserveId = req.params['reserveId'];
@@ -146,20 +146,20 @@ function ReserveRouter() {
     //------------------------------------ADMIN EDTIOR USER ROUTES-------------------------//
     //------------------------------------------------------------------------------------//
 
-    router.route('/reserves/:roomId')
+    router.route('/reserves/:carId')
         //POST - create reserves
         .post(Users.autorize([scopes['create-reserve']]), function (req, res, next) {
 
             console.log('---|create reserve|---');
 
-            let roomId = req.params['roomId'];
+            let carId = req.params['carId'];
             let body = req.body;
 
-            Reserves.create(body, roomId)
+            Reserves.create(body, carId)
                 .then((body) => {
                     console.log('---|funciona|---');
 
-                    /* const response = { auth: true, ...responseServer };
+                    const response = { auth: true, ...responseServer };
 
                     res.send(response);
                     console.log("response create reserves: " + { ...responseServer });
@@ -218,7 +218,7 @@ function ReserveRouter() {
 
             Reserves.findByUserId(idUser, req.pagination)
                 .then((responseServer) => {
-                    console.log('---|MY RESERVES|---'); //retorna o room pelo Id
+                    console.log('---|MY RESERVES|---'); //retorna o car pelo Id
 
                     const response = { auth: true, ...responseServer };
 
@@ -238,4 +238,4 @@ function ReserveRouter() {
 
 }
 
-module.exports = ReserveRouter; */
+module.exports = ReserveRouter; 

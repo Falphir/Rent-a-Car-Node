@@ -3,9 +3,7 @@
 const express = require('express');
 let CarAPI = require('./server/cars');
 let AuthAPI = require('./server/auth');
-//let ReserveAPI = require('./server/reserves');
-//let FavoriteAPI = require('./server/favorites');
-//let CommentAPI = require('./server/comments');
+let ReserveAPI = require('./server/reserves');
 
 function initialize() {
 
@@ -13,9 +11,7 @@ function initialize() {
 
     api.use('/rent-a-car', CarAPI());
     api.use('/auth', AuthAPI());
-    //api.use('/reserve', ReserveAPI());
-    //api.use('/favorite', FavoriteAPI());
-    //api.use('/comment', CommentAPI());
+    api.use('/reserve', ReserveAPI());
 
     return api;
 }
