@@ -1,5 +1,5 @@
  const express = require('express');
-const Reserves = require('../data/reserves');
+const Rents = require('../data/rents');
 const Cars = require('../data/cars');
 const Users = require('../data/users');
 const scopes = require('../data/users/scopes');
@@ -8,7 +8,7 @@ const VerifyToken = require('../middleware/Token');
 const cookieParser = require('cookie-parser');
 
 
-function ReserveRouter() {
+function RentRouter() {
 
     let router = express();
 
@@ -43,16 +43,16 @@ function ReserveRouter() {
     //------------------------------------ADMIN EDITOR ROUTES------------------------------------//
     //------------------------------------------------------------------------------------------//
 
-    router.route('/reserves')
-        //GET - findAll reserves
-        .get(Users.autorize([scopes['read-reserves']]), function (req, res, next) {
+    router.route('/rents')
+        //GET - findAll rents
+        .get(Users.autorize([scopes['read-rents']]), function (req, res, next) {
 
             console.log('---|verify token|---');
 
-            Reserves.findAll(req.pagination)
+            Rents.findAll(req.pagination)
                 .then((responseServer) => {
 
-                    console.log('---|all reserves|---'); //retorna todos os reserves
+                    console.log('---|all rents|---'); //retorna todos os rents
 
                     const response = {
 
@@ -72,20 +72,20 @@ function ReserveRouter() {
         });
 
 
-    router.route('/reserves/:userId')
-        //GET - findAll reserves
-        .get(Users.autorize([scopes['read-reserve-client']]), function (req, res, next) {
+    router.route('/rents/:userId')
+        //GET - findAll rents
+        .get(Users.autorize([scopes['read-rent-client']]), function (req, res, next) {
 
             let idUser = req.params['userId'];
             let pageNumber = req.headers['page'];
             let nPerPage = req.headers['limit'];
 
 
-            Reserves.findByUserId(idUser, pageNumber, nPerPage)
-                .then((reserves) => {
+            Rents.findByUserId(idUser, pageNumber, nPerPage)
+                .then((rents) => {
 
-                    console.log('---|all reserves|---'); //retorna todos os reserves
-                    res.send(reserves);
+                    console.log('---|all rents|---'); //retorna todos os rents
+                    res.send(rents);
                     next();
                 })
 
@@ -97,17 +97,17 @@ function ReserveRouter() {
         })
 
 
-    router.route('/reserves/:reserveId')
-        //PUT - update reserve by ID
-        .put(Users.autorize([scopes['update-reserve']]), function (req, res, next) {
+    router.route('/rents/:rentId')
+        //PUT - update rent by ID
+        .put(Users.autorize([scopes['update-rent']]), function (req, res, next) {
 
-            let reserveId = req.params['reserveId'];
+            let rentId = req.params['rentId'];
             let body = req.body;
 
 
-            Reserves.update(reserveId, body)
+            Rents.update(rentId, body)
                 .then((car) => {
-                    console.log('---|update one reserve by ID|---'); //altera dados do reserve
+                    console.log('---|update one rent by ID|---'); //altera dados do rent
                     res.status(200);
                     res.send(car);
                     next();
@@ -121,15 +121,15 @@ function ReserveRouter() {
         })
 
         //DELETE - delete car by ID
-        .delete(Users.autorize([scopes['delete-reserve']]), function (req, res, next) {
+        .delete(Users.autorize([scopes['delete-rent']]), function (req, res, next) {
 
-            let reserveId = req.params['reserveId'];
+            let rentId = req.params['rentId'];
 
-            Reserves.removeById(reserveId)
+            Rents.removeById(rentId)
                 .then(() => {
-                    console.log("---|delete one reserve by ID|---")
+                    console.log("---|delete one rent by ID|---")
                     res.status(200);
-                    res.send("delete successfully");
+                    res.send("Rent: " + rentId + " deleted successfully");
                     next();
                 })
 
@@ -146,25 +146,20 @@ function ReserveRouter() {
     //------------------------------------ADMIN EDTIOR USER ROUTES-------------------------//
     //------------------------------------------------------------------------------------//
 
-    router.route('/reserves/:carId')
-        //POST - create reserves
-        .post(Users.autorize([scopes['create-reserve']]), function (req, res, next) {
+    router.route('/rents/:carId')
+        //POST - create rents
+        .post(Users.autorize([scopes['create-rent']]), function (req, res, next) {
 
-            console.log('---|create reserve|---');
+            console.log('---|create rent|---');
 
             let carId = req.params['carId'];
             let body = req.body;
 
-            Reserves.create(body, carId)
+            Rents.create(body, carId)
                 .then((body) => {
-                    console.log('---|funciona|---');
+                    //console.log('---|funciona|---');
 
-                    const response = { auth: true, ...responseServer };
-
-                    res.send(response);
-                    console.log("response create reserves: " + { ...responseServer });
-                    next(); 
-                    console.log('save');
+                    console.log('---|save|---');
                     res.status(200);
                     res.send(body);
                     next();
@@ -179,18 +174,18 @@ function ReserveRouter() {
         });
 
 
-    router.route('/reserves/:reserveId')
-        //GET - findById reserve
-        .get(Users.autorize([scopes['detail-reserve']]), function (req, res, next) {
+    router.route('/rents/:rentId')
+        //GET - findById rent
+        .get(Users.autorize([scopes['detail-rent']]), function (req, res, next) {
 
-            let reserveId = req.params['reserveId'];
+            let rentId = req.params['rentId'];
 
 
-            Reserves.findById(reserveId)
-                .then((reserve) => {
-                    console.log('---|find one reserve by ID|---'); //retorna o reserve pelo Id
+            Rents.findById(rentId)
+                .then((rent) => {
+                    console.log('---|find one rent by ID|---'); //retorna o rent pelo Id
                     res.status(200);
-                    res.send(reserve);
+                    res.send(rent);
                     next();
                 })
 
@@ -209,16 +204,16 @@ function ReserveRouter() {
     //----------------------------------------------------------------------------------//
 
 
-    router.route('/user/reserves/:idUser')
-        //GET - findAll reserves
-        .get(Users.autorize([scopes['read-own-reserves']]), function (req, res, next) {
+    router.route('/user/rents/:idUser')
+        //GET - findAll rents
+        .get(Users.autorize([scopes['read-own-rents']]), function (req, res, next) {
 
             let idUser = req.params['idUser'];
 
 
-            Reserves.findByUserId(idUser, req.pagination)
+            Rents.findByUserId(idUser, req.pagination)
                 .then((responseServer) => {
-                    console.log('---|MY RESERVES|---'); //retorna o car pelo Id
+                    console.log('---|MY RENTS|---'); //retorna a rent pelo Id
 
                     const response = { auth: true, ...responseServer };
 
@@ -238,4 +233,4 @@ function ReserveRouter() {
 
 }
 
-module.exports = ReserveRouter; 
+module.exports = RentRouter; 

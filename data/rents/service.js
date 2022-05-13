@@ -1,6 +1,6 @@
 //vai devolver sempre as ações q podemos fazer na BD
 
-function ReserveService(ReserveModel) {
+function RentService(RentModel) {
     let service = {
         create,
         findAll,
@@ -11,38 +11,38 @@ function ReserveService(ReserveModel) {
         findByName
     };
 
-    //criar reserve
+    //criar rent
     function create(values, id) {
 
-        let newReserve = ReserveModel(values, id);
+        let newRent = RentModel(values, id);
 
-        return save(newReserve);
+        return save(newRent);
     }
 
 
-    //guardar reserve
-    function save(newReserve) {
+    //guardar rent
+    function save(newRent) {
         return new Promise(function (resolve, reject) {
 
             //guardar
-            newReserve.save(function (err) {
+            newRent.save(function (err) {
 
                 if (err) reject(err);
 
-                resolve('Reserve created!');
+                resolve(newRent);
             });
         });
     }
 
 
-    //procurar reserve
+    //procurar rent
     function findAll(pagination) {
 
         const { limit, skip } = pagination;
 
         return new Promise(function (resolve, reject) {
 
-            ReserveModel.find({}, {}, { skip, limit }, function (err, users) {
+            RentModel.find({}, {}, { skip, limit }, function (err, users) {
 
                 if (err) reject(err);
 
@@ -52,10 +52,10 @@ function ReserveService(ReserveModel) {
         })
 
             .then(async (users) => {
-                const totalUsers = await ReserveModel.count();
+                const totalUsers = await RentModel.count();
 
                 return Promise.resolve({
-                    reserves: users,
+                    rents: users,
                     pagination: {
                         pageSize: limit,
                         page: Math.floor(skip / limit),
@@ -67,10 +67,10 @@ function ReserveService(ReserveModel) {
     }
 
 
-    //procurar reserve por id
+    //procurar rent por id
     function findById(id) {
         return new Promise(function (resolve, reject) {
-            ReserveModel.findById(id, function (err, user) {
+            RentModel.findById(id, function (err, user) {
                 if (err) reject(err);
 
                 //objecto de todos os users
@@ -80,30 +80,30 @@ function ReserveService(ReserveModel) {
     }
 
 
-    //procurar reserve por user id
+    //procurar rent por user id
     function findByUserId(idUser, pagination) {
 
         const { limit, skip } = pagination;
 
         return new Promise(function (resolve, reject) {
 
-            ReserveModel.find({ idUser: idUser }, {}, { skip, limit }, function (err, user) {
+            RentModel.find({ idUser: idUser }, {}, { skip, limit }, function (err, user) {
 
                 if (err) reject(err);
 
                 resolve(user);
             })
-                .sort('dateCheckIn') //ordenação crescente por date Check In
+                .sort('datePickUp') //ordenação crescente por date Check In
             //.skip(intPageNumber > 0 ? ((intPageNumber - 1) * intNPerPage) : 0)
             //.limit(intNPerPage);
         })
 
             .then(async (users) => {
 
-                const totalUsers = await ReserveModel.count();
+                const totalUsers = await RentModel.count();
 
                 return Promise.resolve({
-                    reserves: users,
+                    rents: users,
                     pagination: {
                         pageSize: limit,
                         page: Math.floor(skip / limit),
@@ -115,11 +115,11 @@ function ReserveService(ReserveModel) {
     }
 
 
-    //procurar reserve por name
+    //procurar rent por name
     function findByName(name) {
         return new Promise(function (resolve, reject) {
 
-            ReserveModel.find({ name: new RegExp(name) }, function (err, users) {
+            RentModel.find({ name: new RegExp(name) }, function (err, users) {
 
                 if (err) reject(err);
 
@@ -129,11 +129,11 @@ function ReserveService(ReserveModel) {
     }
 
 
-    //atualizar reserve
-    function update(roomId, values) {
+    //atualizar rent
+    function update(rentId, values) {
         return new Promise(function (resolve, reject) {
 
-            ReserveModel.findByIdAndUpdate(roomId, values, function (err, user) {
+            RentModel.findByIdAndUpdate(rentId, values, function (err, user) {
 
                 if (err) reject(err);
 
@@ -143,18 +143,17 @@ function ReserveService(ReserveModel) {
     }
 
 
-    //remover room pelo id
+    //remover rent pelo id
     function removeById(id) {
         return new Promise(function (resolve, reject) {
 
-            console.log(id);
+            //console.log(id);
 
-            ReserveModel.findByIdAndRemove(id, function (err) {
+            RentModel.findByIdAndRemove(id, function (err) {
 
                 if (err) reject(err);
 
-                console.log(err);
-                resolve();
+                resolve('Rent: ' + id + ' deleted Sucessfully!');
             });
         });
 
@@ -163,4 +162,4 @@ function ReserveService(ReserveModel) {
     return service;
 }
 
-module.exports = ReserveService;
+module.exports = RentService;

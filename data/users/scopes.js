@@ -1,6 +1,6 @@
 module.exports = {
     //USER
-    'read-own-reserves': 'read-own-reserves',
+    'read-own-rents': 'read-own-rents',
     'create-favorite': 'create-favorite',
     'read-own-favorites': 'read-own-favorites',
     'delete-favorite': 'delete-favorite',
@@ -14,50 +14,17 @@ module.exports = {
     'delete-user': 'delete-user',
 
     //ADMIN EDITOR
-    'update-reserve': 'update-reserve',
-    'read-reserves': 'read-reserves',
-    'delete-reserve': 'delete-reserve',
+    'update-rent': 'update-rent',
+    'read-rents': 'read-rents',
+    'delete-rent': 'delete-rent',
     'create-car': 'create-car',
     'update-car': 'update-car',
-    'read-reserve-client': 'read-reserve-client',
+    'read-rent-client': 'read-rent-client',
     'delete-car': 'delete-car',
 
     //ADMIN EDITOR USER
-    'create-reserve': 'create-reserve',
-    'detail-reserve': 'detail-reserve',
+    'create-rent': 'create-rent',
+    'detail-rent': 'detail-rent',
     'verify-logged-in': 'verify-logged-in'
 };
 
-
-/* 
-GET /reserve/user/reserves/:userId -> 'read-own-reserves'
-POST /reserve/reserves/:roomId -> 'create-reserve'
-PUT /reserve/reserves/:reserveId -> 'update-reserve'
-GET /reserve/reserves -> 'read-reserves'
-GET /reserve/reserves/:reserveId -> 'detail-reserve'
-DELETE /reserve/reserves/:reserveId -> 'delete-reserve'
-GET /reserve/reserves/:userId -> 'read-reserve-client'
-GET /auth/admin/users -> 'read-users'
-GET /auth/me -> 'verify-logged-in'
-
--------------------------------------
-GET /hotel/rooms -> SEM SCOPE
-GET /hotel/rooms/:roomId -> SEM SCOPE
-GET /hotel/rooms/:roomId/tags -> SEM SCOPE
-GET /hotel/rooms/:description -> SEM SCOPE
-
-POST /hotel/rooms -> 'create-car'
-PUT /hotel/rooms/:roomId -> 'update-room'
-DELETE /hotel/rooms/:roomId -> 'delete-car'
-
----------------------------------------
-
-/auth/user/login *
-/auth/user/register *
-
-/auth/editor/login *
-/auth/editor/register *
-
-/auth/admin/login *
-/auth/admin/register *
-*/

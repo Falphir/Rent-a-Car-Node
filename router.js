@@ -1,17 +1,17 @@
-//router.js é a camada intermédia do rooms.js e o servidor
+//router.js é a camada intermédia do car.js e o servidor
 
 const express = require('express');
 let CarAPI = require('./server/cars');
 let AuthAPI = require('./server/auth');
-let ReserveAPI = require('./server/reserves');
+let RentAPI = require('./server/rents');
 
 function initialize() {
 
     let api = express();
 
     api.use('/rent-a-car', CarAPI());
-    api.use('/auth', AuthAPI());
-    api.use('/reserve', ReserveAPI());
+    api.use('/rent-a-car/auth', AuthAPI());
+    api.use('/rent-a-car/rent', RentAPI());
 
     return api;
 }
