@@ -318,7 +318,7 @@ function AuthRouter() {
 
             Users.findAll(req.pagination)
                 .then((responseServer) => {
-                    console.log('---|ADMIN all users|---'); //retorna todos os rooms
+                    console.log('---|ADMIN all users|---'); //retorna todos os users
 
                     const response = { auth: true, ...responseServer };
 
@@ -335,7 +335,7 @@ function AuthRouter() {
         });
 
     router.route('/admin/users/:id')
-        //DELETE - delete room by ID
+        //DELETE - delete user by ID
         .delete(Users.autorize([scopes['delete-user']]), function (req, res, next) {
 
             console.log("---|delete one user by ID|---")

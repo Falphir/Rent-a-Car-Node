@@ -1,4 +1,4 @@
-//router.js é a camada intermédia do rooms.js e o servidor
+
 
 const express = require('express');
 let CarAPI = require('./server/cars');

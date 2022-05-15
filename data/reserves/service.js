@@ -130,10 +130,10 @@ function ReserveService(ReserveModel) {
 
 
     //atualizar reserve
-    function update(roomId, values) {
+    function update(carId, values) {
         return new Promise(function (resolve, reject) {
 
-            ReserveModel.findByIdAndUpdate(roomId, values, function (err, user) {
+            ReserveModel.findByIdAndUpdate(carId, values, function (err, user) {
 
                 if (err) reject(err);
 
@@ -143,7 +143,7 @@ function ReserveService(ReserveModel) {
     }
 
 
-    //remover room pelo id
+    //remover rent pelo id
     function removeById(id) {
         return new Promise(function (resolve, reject) {
 

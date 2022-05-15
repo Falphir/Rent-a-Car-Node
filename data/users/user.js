@@ -12,7 +12,7 @@ let RoleSchema = new Schema({
                 scopes["update-reserve"], scopes["read-reserves"], scopes["delete-reserve"],
                 scopes["create-car"], scopes["update-car"], scopes["read-reserve-client"],
                 scopes["delete-car"], scopes["create-reserve"], scopes["detail-reserve"], scopes["verify-logged-in"],
-                scopes["delete-user"], scopes["create-favorite"], scopes["read-own-favorites"], scopes["delete-favorite"], scopes["create-comment"]
+                scopes["delete-user"],
             ],
     }]
 });

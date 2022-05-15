@@ -431,6 +431,7 @@ function CarRouter() {
                 .then(() => {
                     console.log('delete');
                     res.status(200);
+                    res.send("Delete Sucessfull")
                     next();
                 })
 

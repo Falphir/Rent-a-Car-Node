@@ -6,16 +6,6 @@ let Tags = new Schema({
     extras: [{ type: String, required: false }]
 });
 
-
-/* let CommentsSchema = new Schema({
-    userId: { type: Number, required: true },
-    username: { type: String, required: true },
-    date: { type: Date, requiered: true },
-    text: { type: String },
-    rating: { type: Number }
-}) */
-
-
 //criar uma schema
 let CarSchema = new Schema({
     image: { type: String, required: false },
